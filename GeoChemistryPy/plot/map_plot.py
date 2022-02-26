@@ -5,33 +5,26 @@ sys.path.append("..")
 import numpy as np
 import pandas as pd
 import math
-#from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 from utils.base import save_fig
 from global_variable import MAP_IMAGE_PATH
 import logging
 logging.captureWarnings(True)
-
-
 import geopandas
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 
-# TODO: check how to download basemap
-def map_projected(col, df, lon,lat):
+def map_projected(col, df):
     """
 
     :param col: pd.Series, one selected column from the data sheet
     :param df: pd.DataFrame, the data sheet
-    
-    :param lon: The field name of lontitude
-    :param lat: The field name of latitude
+   
+   
     """
-    
-
     # Create point geometries
-    geometry = geopandas.points_from_xy(df[lon], df[lat])
-    geo_df = geopandas.GeoDataFrame(df[[ col.name, lon, lat]], geometry=geometry)
+    geometry = geopandas.points_from_xy(df['LONTITUDE'], df['LATITUDE'])
+    geo_df = geopandas.GeoDataFrame(df[[ col.name, 'LONTITUDE', 'LATITUDE']], geometry=geometry)
     world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
    
     # Make figure
